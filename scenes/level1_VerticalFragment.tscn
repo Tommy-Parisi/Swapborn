@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://comjxlgrdnfx0"]
+
+[ext_resource type="Script" path="res://src/player/Player.gd" id="1_smwy8"]
+[ext_resource type="Texture2D" uid="uid://f1fyj3v4mqok" path="res://assets/characters/playerImage.jpg" id="2_uuxh4"]
+[ext_resource type="Script" path="res://src/core/SwapManager.gd" id="3_0s2km"]
+[ext_resource type="Texture2D" uid="uid://7d5vqxvon8tf" path="res://assets/characters/mcnull.png" id="4_jbww3"]
+[ext_resource type="Texture2D" uid="uid://b026ddxhxnpsi" path="res://assets/tilesets/ground.jpg" id="5_qu73s"]
+[ext_resource type="PackedScene" uid="uid://6l86a0sn5so8" path="res://scenes/npcs/scout.tscn" id="5_rjwto"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kt175"]
+size = Vector2(25.6, 25.4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ij8cm"]
+size = Vector2(1233, 668)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6qmly"]
+size = Vector2(274, 500)
+
+[node name="Level1" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("1_smwy8")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+position = Vector2(-130, -69)
+scale = Vector2(0.259, 0.259)
+texture = ExtResource("2_uuxh4")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-130, -71)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-130, -68.5)
+scale = Vector2(5, 5)
+shape = SubResource("RectangleShape2D_kt175")
+
+[node name="SwapManager" type="Node2D" parent="."]
+position = Vector2(500, 1000)
+rotation = 1.13621
+scale = Vector2(10, 10)
+script = ExtResource("3_0s2km")
+
+[node name="Scout" parent="." groups=["npc"] instance=ExtResource("5_rjwto")]
+position = Vector2(-341, -155)
+
+[node name="Ground" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground"]
+position = Vector2(32.5, 500)
+scale = Vector2(1.237, 1)
+texture = ExtResource("5_qu73s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(30.5, 492)
+shape = SubResource("RectangleShape2D_ij8cm")
+
+[node name="DeathZone2" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="DeathZone2"]
+position = Vector2(501, -88.5)
+scale = Vector2(1, 1.89695)
+texture = ExtResource("4_jbww3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone2"]
+position = Vector2(512, -89)
+shape = SubResource("RectangleShape2D_6qmly")
+
+[connection signal="body_entered" from="DeathZone2" to="Player" method="_on_death_zone_2_body_entered"]
