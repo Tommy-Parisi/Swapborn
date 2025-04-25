@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed: float = 90.0
+@export var speed: float = 500.0
 var is_controlled := false
 
 func _physics_process(delta):
@@ -10,10 +10,10 @@ func _physics_process(delta):
 	var dir = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	velocity.x = dir * speed
 
-	if is_on_floor() and Input.is_action_just_pressed("jump"):
-		velocity.y = -200.0
+	if is_on_floor() and Input.is_action_just_pressed("ui_up"):
+		velocity.y = -500.0
 
-	velocity.y += 200 * delta # Gravity
+	velocity.y += 500 * delta # Gravity
 	move_and_slide()
 
 func become_controlled():

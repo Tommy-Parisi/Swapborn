@@ -20,6 +20,7 @@ size = Vector2(274, 500)
 
 [node name="Player" type="CharacterBody2D" parent="."]
 script = ExtResource("1_smwy8")
+speed = 500.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 position = Vector2(-130, -69)

@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var speed: float = 100.0
-@export var jump_velocity: float = -250.0
+@export var jump_velocity: float = -500.0
 
 @onready var death_zone := $"../DeathZone"
 
@@ -21,10 +21,10 @@ func _physics_process(delta):
 	var direction = Input.get_action_strength("ui_right") - Input.get_action_strength(("ui_left"))
 	velocity.x = direction * speed
 
-	if is_on_floor() and Input.is_action_just_pressed("jump"):
+	if is_on_floor() and Input.is_action_just_pressed("ui_up"):
 		velocity.y = jump_velocity
 	
-	velocity.y += 200 * delta # Gravity
+	velocity.y += 500 * delta # Gravity
 	move_and_slide()  
 
 func die():
