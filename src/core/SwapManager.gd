@@ -21,14 +21,13 @@ func on_player_death(player_position: Vector2):
 		start_swap_sequence(closest_npc)
 
 func start_swap_sequence(npc):
-	# Zoom out effect, then switch
-	await camera_zoom_out(npc)
 	for other in npc_list:
-		if other.has_method("release_control"):
+		if other == npc:
+			continue # Don't release control from the one we are about to control
+		if other.has_method("release_control") and other.is_alive and other.is_controlled:
 			other.release_control()
 
 	npc.become_controlled()
-	await camera_zoom_in(npc)
 
 func camera_zoom_out(npc):
 	var camera = npc.get_node("Camera2D")
